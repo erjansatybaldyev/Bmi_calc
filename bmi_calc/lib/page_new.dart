@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+const bottomContainerHeight = 80.0;
+const activeCardBoiok = Color(0xff1d1e33);
+const bottomContainerColor = Colors.red;
+const bottomContainerWidht = double.infinity;
+
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, String title}) : super(key: key);
 
@@ -23,31 +28,46 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               Expanded(
                   child: EseptooNew(
-                boiok: Colors.blue,
+                boiok: activeCardBoiok,
               )),
               Expanded(
                   child: EseptooNew(
-                boiok: Color.fromARGB(255, 197, 10, 141),
+                boiok: activeCardBoiok,
               )),
             ],
           )),
           Expanded(
               child: EseptooNew(
-            boiok: Colors.lightGreen,
+            boiok: activeCardBoiok,
           )),
           Expanded(
               child: Row(
             children: [
               Expanded(
                   child: EseptooNew(
-                boiok: Colors.red,
+                boiok: activeCardBoiok,
               )),
               Expanded(
                   child: EseptooNew(
-                boiok: Colors.blueGrey,
+                boiok: activeCardBoiok,
               )),
             ],
           )),
+          Container(
+            color: bottomContainerColor,
+            margin: EdgeInsets.only(top: 10.0),
+            width: bottomContainerWidht,
+            height: bottomContainerHeight,
+            child: Row(
+              children: [
+                Expanded(child: Icon(Icons.accessibility_new)),
+                Expanded(child: Icon(Icons.add_alarm)),
+                Expanded(
+                    child: Text('Bishkek',
+                        style: TextStyle(color: activeCardBoiok)))
+              ],
+            ),
+          )
         ],
       ),
     );
