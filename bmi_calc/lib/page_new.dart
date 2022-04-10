@@ -65,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
           )),
           Container(
             color: bottomContainerColor,
-            margin: EdgeInsets.only(top: 10.0),
+            margin: EdgeInsets.only(top: 11.0),
             width: bottomContainerWidht,
             height: bottomContainerHeight,
             child: Row(
