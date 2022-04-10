@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bmi_calc/widgets/new_page.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 const bottomContainerHeight = 80.0;
 const activeCardBoiok = Color(0xff1d1e33);
@@ -30,10 +31,18 @@ class _MyHomePageState extends State<MyHomePage> {
               Expanded(
                   child: EseptooNew(
                 boiok: activeCardBoiok,
+                cardChild: IconWidget(
+                  icon: FontAwesomeIcons.mars,
+                  label: 'Male',
+                ),
               )),
               Expanded(
                   child: EseptooNew(
                 boiok: activeCardBoiok,
+                cardChild: IconWidget(
+                  icon: FontAwesomeIcons.venus,
+                  label: 'FEMALE',
+                ),
               )),
             ],
           )),
@@ -71,6 +80,33 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
+    );
+  }
+}
+
+class IconWidget extends StatelessWidget {
+  IconWidget({this.icon, this.label});
+
+  final IconData icon;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Icon(icon, size: 80.0),
+        SizedBox(
+          height: 15.0,
+        ),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 18.0,
+            color: Color(0xFF8d8e98),
+          ),
+        )
+      ],
     );
   }
 }
