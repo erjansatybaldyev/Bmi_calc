@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 const bottomContainerHeight = 80.0;
 const activeCardBoiok = Color(0xff1d1e33);
+const inactiveCardBoiok = Color(0xFF111328);
 const bottomContainerColor = Colors.red;
 const bottomContainerWidht = double.infinity;
 
@@ -15,6 +16,31 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Color maleCardBoiok = inactiveCardBoiok;
+  Color femaleCardBoiok = inactiveCardBoiok;
+
+  void updateBoiok(int gender) {
+    if (gender == 1) {
+      if (maleCardBoiok == inactiveCardBoiok) {
+        maleCardBoiok = activeCardBoiok;
+        femaleCardBoiok = inactiveCardBoiok;
+      } else {
+        maleCardBoiok = inactiveCardBoiok;
+      } //basyildy ozgorod
+
+    } else {
+      // female card pressed
+      if (gender == 2) {
+        if (femaleCardBoiok == inactiveCardBoiok) {
+          femaleCardBoiok = activeCardBoiok;
+          maleCardBoiok = inactiveCardBoiok; // baskanda ekoosuno perehot
+        } else {
+          femaleCardBoiok = inactiveCardBoiok;
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,19 +55,33 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Row(
             children: [
               Expanded(
-                  child: EseptooNew(
-                boiok: activeCardBoiok,
-                cardChild: IconWidget(
-                  icon: FontAwesomeIcons.mars,
-                  label: 'Male',
+                  child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    updateBoiok(1);
+                  });
+                },
+                child: EseptooNew(
+                  boiok: maleCardBoiok,
+                  cardChild: IconWidget(
+                    icon: FontAwesomeIcons.mars,
+                    label: 'Male',
+                  ),
                 ),
               )),
               Expanded(
-                  child: EseptooNew(
-                boiok: activeCardBoiok,
-                cardChild: IconWidget(
-                  icon: FontAwesomeIcons.venus,
-                  label: 'FEMALE',
+                  child: GestureDetector(
+                onTap: (() {
+                  setState(() {
+                    updateBoiok(2);
+                  });
+                }),
+                child: EseptooNew(
+                  boiok: femaleCardBoiok,
+                  cardChild: IconWidget(
+                    icon: FontAwesomeIcons.venus,
+                    label: 'FEMALE',
+                  ),
                 ),
               )),
             ],
