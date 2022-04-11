@@ -8,6 +8,11 @@ const inactiveCardBoiok = Color(0xFF111328);
 const bottomContainerColor = Colors.red;
 const bottomContainerWidht = double.infinity;
 
+enum Gender {
+  male,
+  female,
+} // funksia jazdyk
+
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, String title}) : super(key: key);
 
@@ -16,30 +21,32 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Color maleCardBoiok = inactiveCardBoiok;
-  Color femaleCardBoiok = inactiveCardBoiok;
+  Gender selectedGender; // funksya  chakyruuluchu
 
-  void updateBoiok(int gender) {
-    if (gender == 1) {
-      if (maleCardBoiok == inactiveCardBoiok) {
-        maleCardBoiok = activeCardBoiok;
-        femaleCardBoiok = inactiveCardBoiok;
-      } else {
-        maleCardBoiok = inactiveCardBoiok;
-      } //basyildy ozgorod
+  // Color maleCardBoiok = inactiveCardBoiok;
+  // Color femaleCardBoiok = inactiveCardBoiok;
 
-    } else {
-      // female card pressed
-      if (gender == 2) {
-        if (femaleCardBoiok == inactiveCardBoiok) {
-          femaleCardBoiok = activeCardBoiok;
-          maleCardBoiok = inactiveCardBoiok; // baskanda ekoosuno perehot
-        } else {
-          femaleCardBoiok = inactiveCardBoiok;
-        }
-      }
-    }
-  }
+  // void updateBoiok(Gender selectedgender) {
+  //   if (selectedgender == Gender.male) {
+  //     if (maleCardBoiok == inactiveCardBoiok) {
+  //       maleCardBoiok = activeCardBoiok;
+  //       femaleCardBoiok = inactiveCardBoiok;
+  //     } else {
+  //       maleCardBoiok = inactiveCardBoiok;
+  //     } //basyildy ozgorod
+
+  //   } else {
+  //     // female card pressed
+  //     if (selectedgender == Gender.female) {
+  //       if (femaleCardBoiok == inactiveCardBoiok) {
+  //         femaleCardBoiok = activeCardBoiok;
+  //         maleCardBoiok = inactiveCardBoiok; // baskanda ekoosuno perehot
+  //       } else {
+  //         femaleCardBoiok = inactiveCardBoiok;
+  //       }
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -58,11 +65,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: GestureDetector(
                 onTap: () {
                   setState(() {
-                    updateBoiok(1);
+                    selectedGender = Gender.male;
                   });
                 },
                 child: EseptooNew(
-                  boiok: maleCardBoiok,
+                  boiok: selectedGender == Gender.male
+                      ? activeCardBoiok
+                      : inactiveCardBoiok,
                   cardChild: IconWidget(
                     icon: FontAwesomeIcons.mars,
                     label: 'Male',
@@ -73,11 +82,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: GestureDetector(
                 onTap: (() {
                   setState(() {
-                    updateBoiok(2);
+                    selectedGender = Gender.female;
                   });
                 }),
                 child: EseptooNew(
-                  boiok: femaleCardBoiok,
+                  boiok: selectedGender == Gender.female
+                      ? activeCardBoiok
+                      : inactiveCardBoiok, // ternarnyi operator
                   cardChild: IconWidget(
                     icon: FontAwesomeIcons.venus,
                     label: 'FEMALE',
