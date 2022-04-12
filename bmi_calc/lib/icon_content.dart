@@ -1,3 +1,4 @@
+import 'package:bmi_calc/constants.dart';
 import 'package:flutter/material.dart';
 
 const labelTextStyle = TextStyle(

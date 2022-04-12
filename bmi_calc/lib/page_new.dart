@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:bmi_calc/widgets/new_page.dart';
+import 'package:flutter/painting.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-const bottomContainerHeight = 80.0;
-const activeCardBoiok = Color(0xff1d1e33);
-const inactiveCardBoiok = Color(0xFF111328);
-const bottomContainerColor = Colors.red;
-const bottomContainerWidht = double.infinity;
+import 'constants.dart';
 
 enum Gender {
   male,
@@ -21,7 +18,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Gender selectedGender; // funksya  chakyruuluchu
+  Gender selectedGender;
+  int height = 180; // funksya  chakyruuluchu
 
   // Color maleCardBoiok = inactiveCardBoiok;
   // Color femaleCardBoiok = inactiveCardBoiok;
@@ -57,42 +55,39 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Text('KG Eseptoo'),
           )),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch, // center kyluu
         children: [
           Expanded(
               child: Row(
             children: [
               Expanded(
-                  child: GestureDetector(
-                onTap: () {
+                  child: EseptooNew(
+                onPress: () {
                   setState(() {
                     selectedGender = Gender.male;
                   });
                 },
-                child: EseptooNew(
-                  boiok: selectedGender == Gender.male
-                      ? activeCardBoiok
-                      : inactiveCardBoiok,
-                  cardChild: IconWidget(
-                    icon: FontAwesomeIcons.mars,
-                    label: 'Male',
-                  ),
+                boiok: selectedGender == Gender.male
+                    ? activeCardBoiok
+                    : inactiveCardBoiok,
+                cardChild: IconWidget(
+                  icon: FontAwesomeIcons.mars,
+                  label: 'Бала',
                 ),
               )),
               Expanded(
-                  child: GestureDetector(
-                onTap: (() {
+                  child: EseptooNew(
+                onPress: () {
                   setState(() {
                     selectedGender = Gender.female;
                   });
-                }),
-                child: EseptooNew(
-                  boiok: selectedGender == Gender.female
-                      ? activeCardBoiok
-                      : inactiveCardBoiok, // ternarnyi operator
-                  cardChild: IconWidget(
-                    icon: FontAwesomeIcons.venus,
-                    label: 'FEMALE',
-                  ),
+                },
+                boiok: selectedGender == Gender.female
+                    ? activeCardBoiok
+                    : inactiveCardBoiok, // ternarnyi operator
+                cardChild: IconWidget(
+                  icon: FontAwesomeIcons.venus,
+                  label: 'Кыз',
                 ),
               )),
             ],
@@ -100,6 +95,42 @@ class _MyHomePageState extends State<MyHomePage> {
           Expanded(
               child: EseptooNew(
             boiok: activeCardBoiok,
+            cardChild: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Height',
+                  style: labelTextStyle, // constantstan keldy
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                  textBaseline: TextBaseline.alphabetic,
+                  children: [
+                    Text(
+                      height.toString(),
+                      style: kNumberTextStyle, // kyskartuu
+                    ),
+                    Text(
+                      'cm',
+                      style: labelTextStyle,
+                    )
+                  ],
+                ),
+                Slider(
+                  value: height.toDouble(),
+                  min: 120.0,
+                  max: 220.0,
+                  activeColor: Color(0xffeb1555),
+                  inactiveColor: Color(0xFF8d8e98),
+                  onChanged: (double value) {
+                    setState(() {
+                      height = value.round();
+                    });
+                  },
+                ), // jyldyrgych slider menen ishtoo
+              ],
+            ),
           )),
           Expanded(
               child: Row(
@@ -107,6 +138,12 @@ class _MyHomePageState extends State<MyHomePage> {
               Expanded(
                   child: EseptooNew(
                 boiok: activeCardBoiok,
+                cardChild: Column(children: [
+                  Text(
+                    '89',
+                    style: kNumberTextStyle,
+                  )
+                ]),
               )),
               Expanded(
                   child: EseptooNew(
@@ -118,10 +155,12 @@ class _MyHomePageState extends State<MyHomePage> {
             color: bottomContainerColor,
             margin: EdgeInsets.only(top: 11.0),
             width: bottomContainerWidht,
-            height: bottomContainerHeight,
+            height: kBottomContainerHeight,
             child: Row(
               children: [
-                Expanded(child: Icon(Icons.accessibility_new)),
+                Expanded(
+                  child: Icon(Icons.accessibility_new),
+                ),
                 Expanded(child: Icon(Icons.add_alarm)),
                 Expanded(
                     child: Text('Bishkek',
