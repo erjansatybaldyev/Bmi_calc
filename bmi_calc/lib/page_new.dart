@@ -19,7 +19,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Gender selectedGender;
-  int height = 180; // funksya  chakyruuluchu
+  int height = 180;
+  int weight = 60;
+  int age = 28;
+  // funksya  chakyruuluchu
 
   // Color maleCardBoiok = inactiveCardBoiok;
   // Color femaleCardBoiok = inactiveCardBoiok;
@@ -99,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'Height',
+                  'Боюнуз',
                   style: labelTextStyle, // constantstan keldy
                 ),
                 Row(
@@ -117,17 +120,28 @@ class _MyHomePageState extends State<MyHomePage> {
                     )
                   ],
                 ),
-                Slider(
-                  value: height.toDouble(),
-                  min: 120.0,
-                  max: 220.0,
-                  activeColor: Color(0xffeb1555),
-                  inactiveColor: Color(0xFF8d8e98),
-                  onChanged: (double value) {
-                    setState(() {
-                      height = value.round();
-                    });
-                  },
+                SliderTheme(
+                  data: SliderTheme.of(context).copyWith(
+                      inactiveTrackColor: Color(0xFF8d8e98),
+                      activeTrackColor: Colors.white,
+                      thumbColor: Color(0xffeb1555),
+                      overlayColor: Color(0xffeb1555),
+                      thumbShape: RoundSliderThumbShape(
+                          enabledThumbRadius: 15.0), // syzylgan kyzyl choiondu
+                      overlayShape:
+                          RoundSliderOverlayShape(overlayRadius: 30.0)),
+                  child: Slider(
+                    value: height.toDouble(),
+                    min: 120.0,
+                    max: 220.0,
+                    // activeColor: Color(0xffeb1555),
+                    inactiveColor: Color(0xFF8d8e98),
+                    onChanged: (double value) {
+                      setState(() {
+                        height = value.round();
+                      });
+                    },
+                  ),
                 ), // jyldyrgych slider menen ishtoo
               ],
             ),
@@ -136,18 +150,78 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Row(
             children: [
               Expanded(
+                  // weigt jazyldy
                   child: EseptooNew(
                 boiok: activeCardBoiok,
-                cardChild: Column(children: [
-                  Text(
-                    '89',
-                    style: kNumberTextStyle,
-                  )
-                ]),
+                cardChild: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Салмак",
+                        style: kNumberTextStyle,
+                      ),
+                      Text(
+                        weight.toString(),
+                        style: kNumberTextStyle,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          RundIconButton(
+                            onPressed: () {
+                              setState(() {
+                                weight--;
+                              });
+                            },
+                            icon: FontAwesomeIcons.minus,
+                          ),
+                          SizedBox(width: 10.0),
+                          RundIconButton(
+                              onPressed: () {
+                                setState(() {
+                                  weight++;
+                                });
+                              },
+                              icon: FontAwesomeIcons.plus)
+                        ],
+                      )
+                    ]),
               )),
               Expanded(
                   child: EseptooNew(
                 boiok: activeCardBoiok,
+                cardChild: Column(children: [
+                  Text(
+                    'жаш',
+                    style: kNumberTextStyle,
+                  ),
+                  Text(
+                    age.toString(),
+                    style: kNumberTextStyle,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      RundIconButton(
+                          onPressed: () {
+                            setState(() {
+                              age--;
+                            });
+                          },
+                          icon: FontAwesomeIcons.minus),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      RundIconButton(
+                          onPressed: () {
+                            setState(() {
+                              age++;
+                            });
+                          },
+                          icon: FontAwesomeIcons.plus)
+                    ],
+                  )
+                ]),
               )),
             ],
           )),
@@ -197,6 +271,28 @@ class IconWidget extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+}
+
+class RundIconButton extends StatelessWidget {
+  RundIconButton({@required this.icon, this.onPressed});
+
+  final IconData icon;
+  final Function onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      child: Icon(icon),
+      onPressed: onPressed,
+      elevation: 0.0,
+      constraints: BoxConstraints.tightFor(
+        width: 56.0,
+        height: 56.0,
+      ),
+      shape: CircleBorder(),
+      fillColor: Color.fromARGB(255, 249, 250, 253),
     );
   }
 }
