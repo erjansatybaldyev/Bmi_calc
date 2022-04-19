@@ -1,4 +1,4 @@
-import 'package:bmi_calc/screens/page.dart';
+import 'package:bmi_calc/screens/result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:bmi_calc/widgets/new_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -14,8 +14,6 @@ enum Gender {
 } // funksia jazdyk
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, String title}) : super(key: key);
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -57,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.black,
-          title: Center(
+          title: const Center(
             child: Text('KG Eseptoo'),
           )),
       body: Column(
@@ -104,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
             cardChild: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(
+                const Text(
                   'Боюнуз',
                   style: labelTextStyle, // constantstan keldy
                 ),
@@ -117,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height.toString(),
                       style: kNumberTextStyle, // kyskartuu
                     ),
-                    Text(
+                    const Text(
                       'cm',
                       style: labelTextStyle,
                     )
@@ -125,20 +123,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 SliderTheme(
                   data: SliderTheme.of(context).copyWith(
-                      inactiveTrackColor: Color(0xFF8d8e98),
+                      inactiveTrackColor: const Color(0xFF8d8e98),
                       activeTrackColor: Colors.white,
-                      thumbColor: Color(0xffeb1555),
-                      overlayColor: Color(0xffeb1555),
-                      thumbShape: RoundSliderThumbShape(
+                      thumbColor: const Color(0xffeb1555),
+                      overlayColor: const Color(0xffeb1555),
+                      thumbShape: const RoundSliderThumbShape(
                           enabledThumbRadius: 15.0), // syzylgan kyzyl choiondu
                       overlayShape:
-                          RoundSliderOverlayShape(overlayRadius: 30.0)),
+                          const RoundSliderOverlayShape(overlayRadius: 30.0)),
                   child: Slider(
                     value: height.toDouble(),
                     min: 120.0,
                     max: 220.0,
                     // activeColor: Color(0xffeb1555),
-                    inactiveColor: Color(0xFF8d8e98),
+                    inactiveColor: const Color(0xFF8d8e98),
                     onChanged: (double value) {
                       setState(() {
                         height = value.round();
@@ -159,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 cardChild: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         "Салмак",
                         style: kNumberTextStyle,
                       ),
@@ -178,7 +176,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             },
                             icon: FontAwesomeIcons.minus,
                           ),
-                          SizedBox(width: 10.0),
+                          const SizedBox(width: 10.0),
                           RundIconButton(
                               onPressed: () {
                                 setState(() {
@@ -194,7 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: EseptooNew(
                 boiok: activeCardBoiok,
                 cardChild: Column(children: [
-                  Text(
+                  const Text(
                     'жаш',
                     style: kNumberTextStyle,
                   ),
@@ -212,7 +210,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             });
                           },
                           icon: FontAwesomeIcons.minus),
-                      SizedBox(
+                      const SizedBox(
                         width: 10.0,
                       ),
                       RundIconButton(
@@ -231,18 +229,14 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomButton(
             buttonTitle: 'CALCULATE',
             onTap: () {
-              CalculateBrain calc =
-                  CalculateBrain(height: height, weight: weight);
-
               Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Results_Page(
-                      resultText: calc.calculateBMI(),
-                      bmiResult: calc.getResult(),
-                      interpretation: calc.getInterpretation()),
-                ),
-              );
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Results_Page(
+                      bmiResult: calculateBrain.calculateBMI(
+                          height: height, weight: weight),
+                    ),
+                  ));
             },
           ),
         ],
