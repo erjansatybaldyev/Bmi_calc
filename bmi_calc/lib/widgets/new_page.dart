@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class EseptooNew extends StatelessWidget {
   EseptooNew({@required this.boiok, this.cardChild, this.onPress});
@@ -13,7 +12,7 @@ class EseptooNew extends StatelessWidget {
       onTap: onPress, // eseptoo new kirip ketti
       child: Container(
         child: cardChild,
-        margin: EdgeInsets.all(15.0),
+        margin: const EdgeInsets.all(15.0),
         decoration: BoxDecoration(
           color: boiok,
           borderRadius: BorderRadius.circular(10.0),

@@ -3,22 +3,18 @@ import 'package:bmi_calc/constants.dart';
 import 'package:bmi_calc/screens/calculate_brain.dart';
 import 'package:bmi_calc/widgets/new_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/semantics.dart';
 import '../constants.dart';
 
 class Results_Page extends StatelessWidget {
-  Results_Page(
-      {@required this.bmiResult, this.resultText, this.interpretation});
+  Results_Page({@required this.bmiResult});
 
   final String bmiResult;
-  final String resultText;
-  final String interpretation;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('BMI CALCULATOR'),
+          title: const Text('BMI CALCULATOR'),
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -28,7 +24,7 @@ class Results_Page extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(5.0),
                 alignment: Alignment.bottomLeft,
-                child: Text(
+                child: const Text(
                   'YOUR RESULTS',
                   style: kTitileTextStyle,
                 ),
@@ -43,7 +39,11 @@ class Results_Page extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      resultText.toUpperCase(),
+                      calculateBrain
+                          .getResult(
+                            double.parse(bmiResult),
+                          )
+                          .toUpperCase(),
                       style: resultTextStyle,
                     ),
                     Text(
@@ -51,7 +51,9 @@ class Results_Page extends StatelessWidget {
                       style: kBMITextStyle,
                     ),
                     Text(
-                      interpretation,
+                      calculateBrain.getInterpretation(
+                        double.parse(bmiResult),
+                      ),
                       textAlign: TextAlign.center,
                       style: kBodyTextStyle,
                     )
